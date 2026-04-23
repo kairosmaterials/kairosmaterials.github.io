@@ -162,8 +162,10 @@ function updateLanguage(lang) {
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (translations[lang] && translations[lang][key]) {
-            if (el.tagName === 'META' || el.tagName === 'TITLE') {
-                el.setAttribute(el.tagName === 'META' ? 'content' : 'text', translations[lang][key]);
+            if (el.tagName === 'META') {
+                el.setAttribute('content', translations[lang][key]);
+            } else if (el.tagName === 'TITLE') {
+                el.textContent = translations[lang][key];
             } else {
                 el.textContent = translations[lang][key];
             }
@@ -171,12 +173,17 @@ function updateLanguage(lang) {
     });
 }
 
-// Initialize language on page load
-let currentLang = getCurrentLanguage();
-updateLanguage(currentLang);
-
-// Add click handler to language toggle button
-document.getElementById('languageToggle').addEventListener('click', () => {
-    currentLang = currentLang === 'en' ? 'zh' : 'en';
+// Initialize language after DOM is fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+    let currentLang = getCurrentLanguage();
     updateLanguage(currentLang);
+
+    // Add click handler to language toggle button
+    const langToggle = document.getElementById('languageToggle');
+    if (langToggle) {
+        langToggle.addEventListener('click', () => {
+            currentLang = currentLang === 'en' ? 'zh' : 'en';
+            updateLanguage(currentLang);
+        });
+    }
 });
