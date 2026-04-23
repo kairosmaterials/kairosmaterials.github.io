@@ -71,7 +71,7 @@ const translations = {
         "nav.models": "Models",
         "nav.documentation": "Documentation",
         "nav.github": "GitHub",
-        "hero.title": "开物纪",
+        "hero.title": "KairosMaterial",
         "hero.subtitle": "Accurate interatomic potential models for scalable materials modeling",
         "hero.browseModels": "Browse Models",
         "hero.documentation": "Documentation",
